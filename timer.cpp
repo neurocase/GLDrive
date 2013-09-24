@@ -12,7 +12,6 @@
 
 
 Timer::Timer(){
-
   t.start();
 
 }
@@ -24,7 +23,6 @@ double Timer::getTime(){
 }
 
 Timer::~Timer(){
-
 
 }
 

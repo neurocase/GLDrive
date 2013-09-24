@@ -6,8 +6,7 @@
 class Timer{
 	private:
 	  boost::timer::cpu_timer t;
-	
-	
+
 	public:
 		Timer();
 		~Timer();
