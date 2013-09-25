@@ -34,22 +34,19 @@ Draw draweth;
 Player Playr;
 
 
-Game::Game()
-{
+Game::Game(){
 }
 
 
 Player* Game::getPlayer() {
-return &Playr;
+	return &Playr;
 }
 
 
-void Game::run(int argc, char **argv)
-{
+void Game::run(int argc, char **argv){
 
 }
-void Game::Reshape(int w, int h)
-{
+void Game::Reshape(int w, int h){
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -58,52 +55,51 @@ void Game::Reshape(int w, int h)
     glLoadIdentity();
 }
 
-void Game::GameLoop()
-{
+void Game::GameLoop(){
 
 	if (startTime == 0){
 		startTime = mytime.getTime();
 	}
 
-	nowTime = mytime.getTime();
-		double delta = nowTime - previousTime;
-		
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-		
-		delta = delta * 10;
+nowTime = mytime.getTime();
+double delta = nowTime - previousTime;
 
-	int r = Playr.getRotation();
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+glLoadIdentity();
+
+delta = delta * 10;
+
+int r = Playr.getRotation();
 
 
 
-	if (rot >= 360){
-			rot -= 360;
-		}else if(rot < 0){
-			rot += 360;
-	}
+if (rot >= 360){
+	rot -= 360;
+}else if(rot < 0){
+	rot += 360;
+}
 
-	switch(r){
-		case -1:
-			rot -= 4;
-			break;
-		case 1:
-			rot += 4;
-			break;
-		default:
-			break;
-	}
+switch(r){
+	case -1:
+		rot -= 4;
+		break;
+	case 1:
+		rot += 4;
+		break;
+	default:
+		break;
+}
 
-	double qrot = (rot/360)*4;
-	int qrt = (int)qrot;
-	double pqrt = qrot - qrt;
+double qrot = (rot/360)*4;
+int qrt = (int)qrot;
+double pqrt = qrot - qrt;
 
-	pX = 0;
-	pY = 0;
-	//velocityX = 0;
-	//velocityY = 0;
+pX = 0;
+pY = 0;
+//velocityX = 0;
+//velocityY = 0;
 
-	if (Playr.isThrottle() > 0){	
+if (Playr.isThrottle() > 0){	
 
 	switch(qrt){
 		case 0:
@@ -111,101 +107,101 @@ void Game::GameLoop()
 			velocityY -= (1-pqrt);
 			mrX = pqrt;
 			mrY = -(1-pqrt);
-		break;
+			break;
 		case 1:
 			velocityX += (1-pqrt);
 			velocityY += pqrt;
-	
+
 			mrX = (1-pqrt);
 			mrY = pqrt;
-				
-		break;
+
+			break;
 		case 2:
 			velocityX -= pqrt;
 			velocityY +=(1-pqrt);
-			
+
 			mrX =-pqrt;
 			mrY =(1-pqrt);
 
 
-		break;
+			break;
 		case 3:
 			velocityX -= (1-pqrt);
 			velocityY -= pqrt;
-			
+
 			mrX = -(1-pqrt);
 			mrY = -pqrt;
-		break;
+			break;
 
+}
+
+/*incSpeed = nowTime - throttleTime;
+if (incSpeed > 2) incSpeed = 2;*/
+
+
+}else{
+// throttleTime = nowTime;
+
+}
+
+//drag and resistance to velocity
+
+if (velocityX >0.0){
+	velocityX /= 1.05;
+	if (velocityX >2.0 +mrX){
+		velocityX = 2.0+mrX;
 	}
 
-	/*incSpeed = nowTime - throttleTime;
-	if (incSpeed > 2) incSpeed = 2;*/
-
-
-	}else{
-	// throttleTime = nowTime;
-
+}else if(velocityX <0.0){
+	velocityX /= 1.05;
+	if (velocityX <-2.0+mrX){
+		velocityX = -2.0+mrX;
 	}
+}
 
-	//drag and resistance to velocity
+//YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 
-	if (velocityX >0.0){
-		velocityX -= 0.1;
-		if (velocityX >2.0 +mrX){
-			velocityX = 2.0+mrX;
-		}
-
-	}else if(velocityX <0.0){
-		velocityX += 0.1;
-		if (velocityX <-2.0+mrX){
-			velocityX = -2.0+mrX;
-		}
-	}
-
-	//YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-
-	if (velocityY >0.0){
-		velocityY -= 0.1;
+if (velocityY >0.0){
+	velocityY /= 1.05;
 	if (velocityY >2.0+mrY){
 		velocityY = 2.0+mrY;
 	}
 
-	}else if (velocityY <0.0){
-		velocityY += 0.1;
-		if (velocityY <-2.0+mrY){
-			velocityY = -2.0+mrY;
-		}
+}else if (velocityY <0.0){
+	velocityY /= 1.05;
+	if (velocityY <-2.0+mrY){
+		velocityY = -2.0+mrY;
 	}
+}
 
-	if (std::abs(velocityX) < 0.1){
-		velocityX = 0;
-	}
-	if (std::abs(velocityY) < 0.1){
-		velocityY = 0;
-	}
+if (std::abs(velocityX) < 0.1){
+	velocityX = 0;
+}
+if (std::abs(velocityY) < 0.1){
+	velocityY = 0;
+}
 
-	std::cout << "vX:" << velocityX << "vY:" << velocityY << std::endl;
-
-
-	pX = (velocityX * 0.05);
-	pY = (velocityY * 0.05);
-	Playr.setXPos(pX);
-	Playr.setYPos(pY);
-	//std::cout << " rot:" << rot << " qrot:" << qrot << " qrt:" << qrt << " pqrt:" << pqrt << std::endl;
-	//std::cout << "go?" << Playr.getAcceleration() << " px: " << pX << " pY:" << pY << "incSpeed:" << nowTime - throttleTime << std::endl;
-
-	draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),rot, 0);
+std::cout << "vX:" << velocityX << "vY:" << velocityY << std::endl;
 
 
-	// just some hats to mark distance
-	for (double i = -25; i < 25; i+=0.5)
-	{
+pX = (velocityX * 0.05);
+pY = (velocityY * 0.05);
+Playr.setXPos(pX);
+Playr.setYPos(pY);
+//std::cout << " rot:" << rot << " qrot:" << qrot << " qrt:" << qrt << " pqrt:" << pqrt << std::endl;
+//std::cout << "go?" << Playr.getAcceleration() << " px: " << pX << " pY:" << pY << "incSpeed:" << nowTime - throttleTime << std::endl;
+
+draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),rot, 0);
+
+
+// just some hats to mark distance
+for (double i = -25; i < 25; i+=0.5)
+{
 	draweth.DrawRTri(i,i);
-	}
+}
 
-	previousTime = nowTime;
-	glutSwapBuffers();
+previousTime = nowTime;
+glutSwapBuffers();
 }
 
 Game::~Game()

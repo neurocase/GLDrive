@@ -24,7 +24,6 @@ void PrintOnce(std::string key, std::string message) {
 }
 
 Draw::Draw(){
-
 }
 
 
@@ -51,9 +50,11 @@ void Draw::DrawRTri(double alX, double alY){
 	
 }
 
-void Draw::DrawPlayer(double alX, double alY, double rot, double wrot){
+void Draw::DrawPlayer(double alX, double alY, double rot, double view){
 const double PI = 3.141592653589793;
-glTranslated(-alX, -alY,  0);
+view += 1;
+
+glTranslated(-alX, -alY,  -view);
 	//degdToRad
 	rot = rot * (PI/180);
 	
@@ -76,7 +77,7 @@ glTranslated(-alX, -alY,  0);
         glVertex3f(alX+alXt[1], alY+alYt[1], -10.0); //point B
         glVertex3f(alX+alXt[2], alY+alYt[2], -10.0); //point C
     
-    for (int i = 0; i < 3; i++){
+   /* for (int i = 0; i < 3; i++){
 		alXt[i] += 0.1;
 		alYt[i] =  0.1;
 	}
@@ -86,7 +87,7 @@ glTranslated(-alX, -alY,  0);
         glVertex3f(alX+alXt[1], alY+alYt[1], -10.0); //point B
         glVertex3f(alX+alXt[2], alY+alYt[2], -10.0); //point C
     
-    glEnd();
+    glEnd();*/
 	
 }
 
