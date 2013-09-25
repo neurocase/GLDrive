@@ -20,6 +20,22 @@ Player::Player(){
 
 }
 
+
+/*
+
+double Player::getVelX(){
+	return velocityX;
+}
+double Player::getVelY(){
+	return velocityY;
+}*/
+
+
+void Player::setThrottle(bool ac){
+	accel = ac;
+}
+
+
 void Player::setRotation (int d){
 	pRotation = d;
 }
@@ -31,10 +47,13 @@ bool Player::isThrottle(){
 	return accel;
 }
 
-void Player::setThrottle(bool ac){
-	accel = ac;
+void Player::setRot(double r){
+	rot = r;
 }
 
+double Player::getRot(){
+	return rot;
+}
 
 double Player::getXPos()
 {

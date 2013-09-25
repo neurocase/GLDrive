@@ -3,6 +3,7 @@
 #include "draw.h"
 #include "timer.h"
 #include "player.h"
+#include "rotcalc.h"
 
 #include <ctime>
 #include <cmath>
@@ -18,7 +19,7 @@ double holdTime = 0;
 double nowTime = 0;
 double throttleTime = 0;
 double deccelTime = 0;
-double pX = 0;
+/*double pX = 0;
 double pY = 0;
 double incSpeed = 0;
 
@@ -28,11 +29,11 @@ double velocityY = 0;
 double mrX;
 double mrY;
 // move this into player.cpp later
-double rot = 0;
+double rot = 0; */
 
 Draw draweth;
-Player Playr;
-
+Player Playr; 
+Rotcalc rotcal;
 
 Game::Game(){
 }
@@ -69,135 +70,30 @@ glLoadIdentity();
 
 delta = delta * 10;
 
-int r = Playr.getRotation();
+double pX = 0, pY = 0;
+double rot = Playr.getRotation();
+double rota = Playr.getRot();
+rotcal.calcPhys(rota,rot, pX, pY,Playr.isThrottle());
 
-
-
-if (rot >= 360){
-	rot -= 360;
-}else if(rot < 0){
-	rot += 360;
-}
-
-switch(r){
-	case -1:
-		rot -= 4;
-		break;
-	case 1:
-		rot += 4;
-		break;
-	default:
-		break;
-}
-
-double qrot = (rot/360)*4;
-int qrt = (int)qrot;
-double pqrt = qrot - qrt;
-
-pX = 0;
-pY = 0;
-//velocityX = 0;
-//velocityY = 0;
-
-if (Playr.isThrottle() > 0){	
-
-	switch(qrt){
-		case 0:
-			velocityX += pqrt;
-			velocityY -= (1-pqrt);
-			mrX = pqrt;
-			mrY = -(1-pqrt);
-			break;
-		case 1:
-			velocityX += (1-pqrt);
-			velocityY += pqrt;
-
-			mrX = (1-pqrt);
-			mrY = pqrt;
-
-			break;
-		case 2:
-			velocityX -= pqrt;
-			velocityY +=(1-pqrt);
-
-			mrX =-pqrt;
-			mrY =(1-pqrt);
-
-
-			break;
-		case 3:
-			velocityX -= (1-pqrt);
-			velocityY -= pqrt;
-
-			mrX = -(1-pqrt);
-			mrY = -pqrt;
-			break;
-
-}
-
-/*incSpeed = nowTime - throttleTime;
-if (incSpeed > 2) incSpeed = 2;*/
-
-
-}else{
-// throttleTime = nowTime;
-
-}
-
-//drag and resistance to velocity
-
-if (velocityX >0.0){
-	velocityX /= 1.05;
-	if (velocityX >2.0 +mrX){
-		velocityX = 2.0+mrX;
-	}
-
-}else if(velocityX <0.0){
-	velocityX /= 1.05;
-	if (velocityX <-2.0+mrX){
-		velocityX = -2.0+mrX;
-	}
-}
-
-//YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-
-if (velocityY >0.0){
-	velocityY /= 1.05;
-	if (velocityY >2.0+mrY){
-		velocityY = 2.0+mrY;
-	}
-
-}else if (velocityY <0.0){
-	velocityY /= 1.05;
-	if (velocityY <-2.0+mrY){
-		velocityY = -2.0+mrY;
-	}
-}
-
-if (std::abs(velocityX) < 0.1){
-	velocityX = 0;
-}
-if (std::abs(velocityY) < 0.1){
-	velocityY = 0;
-}
-
-std::cout << "vX:" << velocityX << "vY:" << velocityY << std::endl;
-
-
-pX = (velocityX * 0.05);
-pY = (velocityY * 0.05);
 Playr.setXPos(pX);
 Playr.setYPos(pY);
-//std::cout << " rot:" << rot << " qrot:" << qrot << " qrt:" << qrt << " pqrt:" << pqrt << std::endl;
-//std::cout << "go?" << Playr.getAcceleration() << " px: " << pX << " pY:" << pY << "incSpeed:" << nowTime - throttleTime << std::endl;
+Playr.setRot(rota);
 
-draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),rot, 0);
+double view = rotcal.getVelT();
+if (view > 2) view = 2;
+view *=2;
+draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),Playr.getRot(), view, 0);
 
 
 // just some hats to mark distance
-for (double i = -25; i < 25; i+=0.5)
-{
-	draweth.DrawRTri(i,i);
+for (double i = -25; i < 25; i+=0.5){
+	double c = 0;
+	
+	for (double j = -25; j <25; j+=0.5){
+		draweth.DrawRTri(i,j,c);
+		c = c+ 0.1;
+	}
+	
 }
 
 previousTime = nowTime;

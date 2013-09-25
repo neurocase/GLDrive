@@ -19,24 +19,33 @@ class Player{
 	long timeLastShoot;
 	int pRotation;
 	
+
+	// move this into player.cpp later
 	
+	double rot = 0;
 	double accel;
 	
 	
 	public:
 
+	double getVelX();
+	double getVelY();
+	double getVelT();
+	
 	
 	Player();
 	void setRotation (int);
 	int getRotation ();
 	bool isThrottle();
 	void setThrottle(bool);
+	//void calcPhys();
 	
-	
+	double getRot();
 	double getXPos();
 	double getYPos();
 	void setXPos(double);
 	void setYPos(double);
+	void setRot(double);
 	void killPlayer();
 	void fireLaser();
 	void fireMissle();
