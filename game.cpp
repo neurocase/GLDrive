@@ -19,6 +19,11 @@ double holdTime = 0;
 double nowTime = 0;
 double throttleTime = 0;
 double deccelTime = 0;
+
+
+double pX = 0, pY = 0;
+double velX = 0, velY = 0;
+
 /*double pX = 0;
 double pY = 0;
 double incSpeed = 0;
@@ -69,13 +74,13 @@ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 glLoadIdentity();
 
 delta = delta * 10;
-
-double pX = 0, pY = 0;
+/*
+*/
 double rot = Playr.getRotation();
 double rota = Playr.getRot();
 
 
-rotcal.calcPhys(rota,rot, pX, pY,Playr.isThrottle());
+rotcal.calcPhys(rota,rot, pX, pY,velX ,velY, Playr.isThrottle());
 
 
 //rot(active&direction), rotation(in degrees), playerX, playerY, fuel(active));

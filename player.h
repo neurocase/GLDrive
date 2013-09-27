@@ -11,6 +11,8 @@ class Player{
 	bool isAlive;
 	int pHealth;
 	bool reloaded;
+	bool brake;
+	
 	double laserPosX[4];
 	double laserPosY[4];
 	double mislPosX[4];
@@ -37,6 +39,8 @@ class Player{
 	void setRotation (int);
 	int getRotation ();
 	bool isThrottle();
+	bool isBrake();
+	void setBrake(bool);
 	void setThrottle(bool);
 	//void calcPhys();
 	

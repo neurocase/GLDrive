@@ -22,7 +22,9 @@ void keyboard(unsigned char key, int x, int y)
       case 'd':
       Playr->setRotation(-1);
       break;
-      case ' ':
+      case 's':
+        if (Playr->isBrake() == 0)
+		Playr->setBrake(1);
      // GameHeart.PlayerShoot();
       break;
        case 'w':

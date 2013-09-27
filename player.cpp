@@ -17,6 +17,7 @@ Player::Player(){
 	ShipXPos = 1;
 	ShipYPos = 1;
 	reloaded = true;
+	brake = 0;
 
 }
 
@@ -30,6 +31,13 @@ double Player::getVelY(){
 	return velocityY;
 }*/
 
+bool Player::isBrake(){
+	return brake;
+}
+
+void Player::setBrake(bool br){
+	brake = br;
+}
 
 void Player::setThrottle(bool ac){
 	accel = ac;
@@ -69,12 +77,12 @@ double Player::getYPos()
 
 void Player::setXPos(double xPos)
 {
-	ShipXPos = ShipXPos + xPos;
+	ShipXPos = xPos;
 }
 
 void Player::setYPos(double yPos)
 {
-	ShipYPos = ShipYPos + yPos;
+	ShipYPos = yPos;
 }
 
 Player::~Player()
