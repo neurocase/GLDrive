@@ -73,16 +73,25 @@ delta = delta * 10;
 double pX = 0, pY = 0;
 double rot = Playr.getRotation();
 double rota = Playr.getRot();
+
+
 rotcal.calcPhys(rota,rot, pX, pY,Playr.isThrottle());
+
+
+//rot(active&direction), rotation(in degrees), playerX, playerY, fuel(active));
+
+
+
 
 Playr.setXPos(pX);
 Playr.setYPos(pY);
 Playr.setRot(rota);
 
-double view = rotcal.getVelT();
-if (view > 2) view = 2;
-view *=2;
-draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),Playr.getRot(), view, 0);
+
+//double view = rotcal.getVelT();
+//if (view > 2) view = 2;
+//view *=2;
+draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),Playr.getRot(), 2, 0);
 
 
 // just some hats to mark distance

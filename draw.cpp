@@ -40,7 +40,7 @@ void Draw::DrawLaser(double laserX,double laserY){
 } */
 
 void Draw::DrawLaser(double alX, double alY, double rot){
-const double PI = 3.141592653589793;
+//const double PI = 3.141592653589793;
 
 	//degdToRad
 	//rot = rot * (PI/180);
@@ -102,15 +102,15 @@ void Draw::DrawRTri(double alX, double alY, double c){
 }
 
 void Draw::DrawPlayer(double alX, double alY, double rot, double view, int throt){
-const double PI = 3.141592653589793;
-view += 1;
+//const double PI = 3.141592653589793;
+view = 5;
 view = std::abs(view);
-glTranslated(-alX, -alY,  -view);
+glTranslated(-alX, -alY,  -10);
 	//degdToRad
-	rot = rot * (PI/180);
+	//rot = rot * (PI/180);
 	
-	double alXt[3] = {-0.07, 0.07, 0};
-	double alYt[3] = {0.1, 0.1, -0.1};
+	double alXt[3] = {-0.1, -0.1, 0.1};
+	double alYt[3] = {-0.07, 0.07, 0};
 	double tmpalXt[3] = {alXt[0],alXt[1],alXt[2]};
 	double tmpalYt[3] = {alYt[0],alYt[1],alYt[2]};
 		

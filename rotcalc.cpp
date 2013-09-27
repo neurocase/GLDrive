@@ -14,130 +14,70 @@
 Rotcalc::Rotcalc(){
 	
 }
+	
+double force = 0;	
+double mass = 1;
+double accel = 0;	
 
-void Rotcalc::calcPhys(double &rot, int r, double &pX, double &pY, bool fuel){
-	
-	
+double h_pX = 0;
+double h_pY = 0;
+
+void Rotcalc::calcPhys(double &rot, int r, double &pX, double &pY, int fuel){
+
 //int r = rot;
 
 
-double qrot = (rot/360)*4;
-int qrt = (int)qrot;
-double pqrt = qrot - qrt;
-
-
-
-if (rot >= 360){
-	rot -= 360;
-}else if(rot < 0){
-	rot += 360;
+//----------------------
+//-----FRICTION---------
+if (accel > 0){
+	accel -= 0.01;
 }
+if (accel < 0){
+	accel = 0;
+}
+//----------------------
+
+if (fuel == 1){
+accel += 0.1;
+	if (accel > 0.3){
+		accel = 0.3;
+	}
+}
+
+
+
 
 switch(r){
 	case -1:
-		rot -= 4;
+		rot -= 0.1;
 		break;
 	case 1:
-		rot += 4;
+		rot += 0.1;
 		break;
 	default:
 		break;
 }
 
 
-
-pX = 0;
-pY = 0;
-//velocityX = 0;
-//velocityY = 0;
-
-if (fuel){	
-
-	switch(qrt){
-		case 0:
-			velocityX += pqrt;
-			velocityY -= (1-pqrt);
-			mrX = pqrt;
-			mrY = -(1-pqrt);
-			break;
-		case 1:
-			velocityX += (1-pqrt);
-			velocityY += pqrt;
-
-			mrX = (1-pqrt);
-			mrY = pqrt;
-
-			break;
-		case 2:
-			velocityX -= pqrt;
-			velocityY +=(1-pqrt);
-
-			mrX =-pqrt;
-			mrY =(1-pqrt);
+h_pX = pX;
+h_pY = pY;
 
 
-			break;
-		case 3:
-			velocityX -= (1-pqrt);
-			velocityY -= pqrt;
-
-			mrX = -(1-pqrt);
-			mrY = -pqrt;
-			break;
-
-}
-}
-/*incSpeed = nowTime - throttleTime;
-if (incSpeed > 2) incSpeed = 2;*/
 
 
-//}else{
-// throttleTime = nowTime;
 
-//}
+force = mass * accel;
 
-//drag and resistance to velocity
+pX = pX + (force * cos(rot));
+pY = pY + (force * sin(rot));
 
-if (velocityX >0.0){
-	velocityX /= 1.05;
-	if (velocityX >2.0 +mrX){
-		velocityX = 2.0+mrX;
-	}
+//velocity = displacement / time velocity
 
-}else if(velocityX <0.0){
-	velocityX /= 1.05;
-	if (velocityX <-2.0+mrX){
-		velocityX = -2.0+mrX;
-	}
-}
+double velX = (pX - h_pX ) /10;
+double velY = (pY - h_pY) /10;
+pX += velX;
+pY += velY;
 
-//YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-
-if (velocityY >0.0){
-	velocityY /= 1.05;
-	if (velocityY >2.0+mrY){
-		velocityY = 2.0+mrY;
-	}
-
-}else if (velocityY <0.0){
-	velocityY /= 1.05;
-	if (velocityY <-2.0+mrY){
-		velocityY = -2.0+mrY;
-	}
-}
-
-if (std::abs(velocityX) < 0.1){
-	velocityX = 0;
-}
-if (std::abs(velocityY) < 0.1){
-	velocityY = 0;
-}
-
-std::cout << "vX:" << velocityX << "vY:" << velocityY << std::endl;
-
-
-pX = (velocityX * 0.05);
-pY = (velocityY * 0.05);
 
 	
 }

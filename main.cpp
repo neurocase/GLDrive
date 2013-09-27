@@ -88,7 +88,7 @@ int main(int argc, char **argv){
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA);
 
     // Sets the window size to 512*512 square pixels
-    glutInitWindowSize(512, 512);
+    glutInitWindowSize(756, 756);
 
     // Sets the window position to the upper left
     glutInitWindowPosition(0, 0);
