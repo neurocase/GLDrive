@@ -18,6 +18,7 @@ Player::Player(){
 	ShipYPos = 1;
 	reloaded = true;
 	brake = 0;
+	hbrake = 0;
 
 }
 
@@ -38,7 +39,13 @@ bool Player::isBrake(){
 void Player::setBrake(bool br){
 	brake = br;
 }
+bool Player::isHBrake(){
+	return hbrake;
+}
 
+void Player::setHBrake(bool hbr){
+	hbrake = hbr;
+}
 void Player::setThrottle(bool ac){
 	accel = ac;
 }

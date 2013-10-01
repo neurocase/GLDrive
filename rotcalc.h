@@ -18,7 +18,7 @@ class Rotcalc{
 	public:
 	
 	Rotcalc();
-	void calcPhys(double &rot, int r, double &pX, double &pY, double &velX, double &velY, int fuel);
+	void calcPhys(double &rot, int r, double &pX, double &pY, double &velX, double &velY, int fuel,int isBrake, bool isHBrake);
 	double getVelT();
 	
 	~Rotcalc();

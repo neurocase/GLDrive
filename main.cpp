@@ -30,7 +30,11 @@ void keyboard(unsigned char key, int x, int y)
        case 'w':
        if (Playr->isThrottle() == 0)
 		Playr->setThrottle(1);
-		
+      break;
+      case 'v':
+     //  if (Playr->isHBrake() == 0)
+		Playr->setHBrake(true);
+		std::cout << " HBrake down ";
       break;
       
      // default: std::cout << "KEY DOWN = " << key << "\n"; break;
@@ -53,6 +57,16 @@ void keyboardUp(unsigned char key, int x, int y)
       case 'w':
       if  (Playr->isThrottle() == 1)
       Playr->setThrottle(0); //1
+      
+      break;
+	case 's':
+	if (Playr->isBrake() == 1)
+	Playr->setBrake(0);
+	break;
+	case 'v':
+      // if (Playr->isHBrake() == 1)
+		Playr->setHBrake(false);
+		std::cout << " HBrake up ";
       break;
       
   }

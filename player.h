@@ -12,6 +12,7 @@ class Player{
 	int pHealth;
 	bool reloaded;
 	bool brake;
+	bool hbrake;
 	
 	double laserPosX[4];
 	double laserPosY[4];
@@ -41,6 +42,8 @@ class Player{
 	bool isThrottle();
 	bool isBrake();
 	void setBrake(bool);
+	bool isHBrake();
+	void setHBrake(bool);
 	void setThrottle(bool);
 	//void calcPhys();
 	

@@ -80,7 +80,7 @@ double rot = Playr.getRotation();
 double rota = Playr.getRot();
 
 
-rotcal.calcPhys(rota,rot, pX, pY,velX ,velY, Playr.isThrottle());
+rotcal.calcPhys(rota,rot, pX, pY,velX ,velY, Playr.isThrottle(),Playr.isBrake(),Playr.isHBrake());
 
 
 //rot(active&direction), rotation(in degrees), playerX, playerY, fuel(active));
@@ -100,10 +100,10 @@ draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),Playr.getRot(), 2, 0);
 
 
 // just some hats to mark distance
-for (double i = -25; i < 25; i+=0.5){
+for (double i = -25; i < 25; i+=1.3){
 	double c = 0;
 	
-	for (double j = -25; j <25; j+=0.5){
+	for (double j = -25; j <25; j+=1.3){
 		draweth.DrawRTri(i,j,c);
 		c = c+ 0.1;
 	}
