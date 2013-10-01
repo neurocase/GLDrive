@@ -80,25 +80,15 @@ void Draw::DrawLaser(double alX, double alY, double rot){
 
 void Draw::DrawRTri(double alX, double alY, double c){
 	
+
+	glColor3f(1,0.7,c);
 	
-	if (c > 1){
-		c = c -1;
-	glColor3f(c,0,c/2);
-	}
-	if (c > 2){
-		c = c -2;
-		glColor3f(c/2,0,c);
-	}
-	if (c > 3){
-		c = c -3;
-		glColor3f(c,c/2,0);
-	}
 	glBegin(GL_TRIANGLES);  
         glVertex3f(alX-0.05, alY+0.05, -10.0);
         glVertex3f(alX, alY-0.05, -10.0);
         glVertex3f(alX+0.05, alY+0.05, -10.0);
     glEnd();
-	
+	c = 0;
 }
 
 void Draw::DrawPlayer(double alX, double alY, double rot, double view, int throt){

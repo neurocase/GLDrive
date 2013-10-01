@@ -14,12 +14,15 @@ class Game{
 		
 		//double &ShipXPosAdd;
 		Game();
+		void drawBarrier(double sx, double sy, double ex, double ey);
 		void PlayerShoot();
 		void run(int argc, char **argv);
 		void GameLoop();
 		void Reshape(int w, int h);
 		long getTime();	
 		void setMyShipX(double myS);
+		void checkColl(double xa, double ya);
+		
 	//	void setPlayerAdd(Player&);
 		Player* getPlayer();
 		//double getGShipXPosAddy();

@@ -91,7 +91,6 @@ if (totVel > 0 || engineForce > 0)
 		incT = incT * totVel /2;
 	}
 	
-	std::cout << "totV: " << totVel << "engineF: " << engineForce; 
 	
 	//times turning by total velocity for handbrake effect
 	if (isHBrake){
@@ -99,9 +98,8 @@ if (totVel > 0 || engineForce > 0)
 		incT = 0.055 * totVel / 8;
 		} 
 	engineForce = -3;
-	std::cout << "handbrake" << std::endl;
+
 	}
-	
 switch(r){
 	case -1:
 		rot -= incT;
@@ -123,7 +121,7 @@ double forceY = engineForce * sin(rot) + dragY;
 
 
 if (dotdot == 0){	
-std::cout << "fY:" << forceY << " fX:" << forceX << " engF:" << engineForce << std::endl;
+
 } 
 dotdot++;
 if (dotdot > 30){
