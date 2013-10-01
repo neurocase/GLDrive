@@ -22,6 +22,7 @@ double mass = 1;
 double engineForce = 0;
 double traction = 1;
 int dotdot = 0;
+double totVel = 0;
 //double accel = 0;	
 /*
 double h_pX = 0;
@@ -52,11 +53,11 @@ if (fuel == 1){
 	}
 	//second gear
 	engineForce += 0.8;
-	if (engineForce > 80){
-		engineForce = 80;
+	if (engineForce > 90){
+		engineForce = 90;
 	}
 	}else if (fuel == 0){
-		engineForce -= 2;
+		engineForce -= 3;
 }
 
 if (isBrake){
@@ -74,15 +75,30 @@ if (engineForce < 0 && !isBrake){
 	engineForce = 0;
 }
 
-double totVel = std::abs(velX) + std::abs(velY);
+totVel = std::abs(velX) + std::abs(velY);
+
+if (std::abs(totVel) < 0.5){
+	totVel = 0;
+	//make sure turning is'nt trigered by a very small total velocity of 0.0000004325 or something.
+}
 
 if (totVel > 0 || engineForce > 0)
 {
 	double incT = 0.055;
 	
+	if (totVel < 2){
+		//dodgey hack to make the car turn slower at extreem slow speeds 
+		incT = incT * totVel /2;
+	}
+	
+	std::cout << "totV: " << totVel << "engineF: " << engineForce; 
+	
+	//times turning by total velocity for handbrake effect
 	if (isHBrake){
-	incT = 0.055 * totVel / 4; 
-	engineForce = -2;
+		if (totVel > 8 ){
+		incT = 0.055 * totVel / 8;
+		} 
+	engineForce = -3;
 	std::cout << "handbrake" << std::endl;
 	}
 	
@@ -97,7 +113,7 @@ switch(r){
 		break;
 }
 }
-double thickness = 5;
+double thickness = 6;
 	
 double dragX = thickness * -velX / mass;
 double dragY = thickness * -velY / mass;
@@ -148,7 +164,7 @@ double velY = (pY - h_pY) /10;*/
 }
 
 double Rotcalc::getVelT(){
-	return (std::abs(velocityY) + std::abs(velocityX));
+	return totVel;
 }
 
 Rotcalc::~Rotcalc(){

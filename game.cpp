@@ -93,10 +93,12 @@ Playr.setYPos(pY);
 Playr.setRot(rota);
 
 
-//double view = rotcal.getVelT();
-//if (view > 2) view = 2;
-//view *=2;
-draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),Playr.getRot(), 2, 0);
+double view = rotcal.getVelT();
+std::cout << "--view: " << view << " :--";
+if (view < 4.5) view = 4.5;
+view *=2;
+if (view > 15) view = 15;
+draweth.DrawPlayer(Playr.getXPos(),Playr.getYPos(),Playr.getRot(), view, 0);
 
 
 // just some hats to mark distance

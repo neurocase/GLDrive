@@ -102,10 +102,9 @@ void Draw::DrawRTri(double alX, double alY, double c){
 }
 
 void Draw::DrawPlayer(double alX, double alY, double rot, double view, int throt){
-//const double PI = 3.141592653589793;
-view = 5;
+
 view = std::abs(view);
-glTranslated(-alX, -alY,  -10);
+glTranslated(-alX, -alY,  -view);
 	//degdToRad
 	//rot = rot * (PI/180);
 	
